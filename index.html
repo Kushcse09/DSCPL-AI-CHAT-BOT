@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DSCPL - Your Personal Spiritual Assistant</title>
+    <meta name="description" content="DSCPL is your personal spiritual assistant, guiding you daily through devotionals, prayer, meditation, and accountability.">
+    <meta name="theme-color" content="#21808D">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen active">
+            <div class="loading-container">
+                <div class="logo-container">
+                    <div class="logo-icon">✝</div>
+                    <h1 class="logo-title">DSCPL</h1>
+                </div>
+                <div class="loading-spinner"></div>
+                <p class="loading-text">Preparing your spiritual journey...</p>
+            </div>
+        </div>
+
+        <!-- Welcome Screen -->
+        <div id="welcome-screen" class="screen">
+            <div class="container">
+                <div class="welcome-header">
+                    <div class="logo-container">
+                        <div class="logo-icon">✝</div>
+                        <h1 class="logo-title">DSCPL</h1>
+                    </div>
+                    <p class="welcome-subtitle">Your Personal Spiritual Assistant</p>
+                    <p class="welcome-message">What do you need today?</p>
+                </div>
+                
+                <div class="category-grid">
+                    <button class="category-card" data-category="devotion">
+                        <div class="category-icon">📖</div>
+                        <h3>Daily Devotion</h3>
+                        <p>5-minute Bible reading with prayer and reflection</p>
+                    </button>
+                    
+                    <button class="category-card" data-category="prayer">
+                        <div class="category-icon">🙏</div>
+                        <h3>Daily Prayer</h3>
+                        <p>Structured prayer using the ACTS model</p>
+                    </button>
+                    
+                    <button class="category-card" data-category="meditation">
+                        <div class="category-icon">🧘</div>
+                        <h3>Daily Meditation</h3>
+                        <p>Scripture-focused meditation with breathing guide</p>
+                    </button>
+                    
+                    <button class="category-card" data-category="accountability">
+                        <div class="category-icon">🛡️</div>
+                        <h3>Daily Accountability</h3>
+                        <p>Overcome challenges with biblical truth</p>
+                    </button>
+                    
+                    <button class="category-card" data-category="chat">
+                        <div class="category-icon">💬</div>
+                        <h3>Just Chat</h3>
+                        <p>Start a conversation with your AI spiritual guide</p>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Topic Selection Screen -->
+        <div id="topic-screen" class="screen">
+            <div class="container">
+                <div class="screen-header">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                    <h2 id="topic-title">Select Your Focus</h2>
+                </div>
+                
+                <div class="topic-grid" id="topic-grid">
+                    <!-- Topics will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Overview Screen -->
+        <div id="overview-screen" class="screen">
+            <div class="container">
+                <div class="screen-header">
+                    <button class="back-btn" onclick="goBack()">← Back</button>
+                    <h2>Your 7-Day Program</h2>
+                </div>
+                
+                <div class="overview-content">
+                    <div class="program-preview">
+                        <div class="program-goal">
+                            <h3>Your Goal</h3>
+                            <p id="program-goal-text">By the end of this week, you will feel more connected to God and confident in your spiritual journey.</p>
+                        </div>
+                        
+                        <div class="daily-schedule">
+                            <h3>Daily Schedule</h3>
+                            <div class="schedule-items">
+                                <div class="schedule-item">
+                                    <span class="day">Day 1-2</span>
+                                    <span class="activity">Foundation Building</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="day">Day 3-4</span>
+                                    <span class="activity">Deepening Understanding</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="day">Day 5-6</span>
+                                    <span class="activity">Practical Application</span>
+                                </div>
+                                <div class="schedule-item">
+                                    <span class="day">Day 7</span>
+                                    <span class="activity">Reflection & Growth</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="program-length">
+                            <h3>Program Length</h3>
+                            <div class="length-options">
+                                <button class="length-btn active" data-length="7">7 Days</button>
+                                <button class="length-btn" data-length="14">14 Days</button>
+                                <button class="length-btn" data-length="30">30 Days</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="confirmation-actions">
+                        <button class="btn btn--primary btn--full-width" onclick="startProgram()">
+                            Would you like to begin?
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Daily Content Screen -->
+        <div id="content-screen" class="screen">
+            <div class="container">
+                <div class="screen-header">
+                    <button class="back-btn" onclick="goToHome()">← Home</button>
+                    <h2 id="content-title">Today's Content</h2>
+                    <button class="sos-btn" onclick="showSOS()">SOS</button>
+                </div>
+                
+                <div class="content-body" id="content-body">
+                    <!-- Content will be populated dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Screen -->
+        <div id="chat-screen" class="screen">
+            <div class="container">
+                <div class="screen-header">
+                    <button class="back-btn" onclick="goToHome()">← Home</button>
+                    <h2>Spiritual Chat</h2>
+                    <button class="sos-btn" onclick="showSOS()">SOS</button>
+                </div>
+                
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                <p>Hello! I'm here to walk with you in your spiritual journey. How can I help you today?</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <input type="text" id="chat-input" placeholder="Type your message..." class="form-control">
+                        <button class="btn btn--primary" onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SOS Modal -->
+        <div id="sos-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Emergency Support</h3>
+                    <button class="close-btn" onclick="closeSOS()">×</button>
+                </div>
+                <div class="modal-body">
+                    <div class="sos-content">
+                        <div class="sos-scripture">
+                            <h4>Scripture for Strength</h4>
+                            <p class="scripture-text" id="sos-scripture-text"></p>
+                        </div>
+                        <div class="sos-declaration">
+                            <h4>Truth Declaration</h4>
+                            <p class="declaration-text" id="sos-declaration-text"></p>
+                        </div>
+                        <div class="sos-actions">
+                            <h4>Immediate Actions</h4>
+                            <ul id="sos-actions-list">
+                                <li>Take 10 deep breaths</li>
+                                <li>Pray the Lord's Prayer</li>
+                                <li>Call a trusted friend or mentor</li>
+                                <li>Remove yourself from the situation</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Settings Screen -->
+        <div id="settings-screen" class="screen">
+            <div class="container">
+                <div class="screen-header">
+                    <button class="back-btn" onclick="goToHome()">← Home</button>
+                    <h2>Settings</h2>
+                </div>
+                
+                <div class="settings-content">
+                    <div class="setting-group">
+                        <h3>Notifications</h3>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" id="morning-notifications" checked>
+                                Morning devotional reminders
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                <input type="checkbox" id="evening-notifications" checked>
+                                Evening prayer reminders
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Preferences</h3>
+                        <div class="setting-item">
+                            <label class="setting-label">
+                                Bible Translation
+                                <select id="bible-translation" class="form-control">
+                                    <option value="ESV">ESV</option>
+                                    <option value="NIV">NIV</option>
+                                    <option value="NASB">NASB</option>
+                                    <option value="KJV">KJV</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-group">
+                        <h3>Progress</h3>
+                        <div class="progress-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Programs Completed</span>
+                                <span class="stat-value" id="programs-completed">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Days Active</span>
+                                <span class="stat-value" id="days-active">0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Current Streak</span>
+                                <span class="stat-value" id="current-streak">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="goToHome()">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Home</span>
+            </button>
+            <button class="nav-item" onclick="goToChat()">
+                <span class="nav-icon">💬</span>
+                <span class="nav-label">Chat</span>
+            </button>
+            <button class="nav-item" onclick="goToSettings()">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Settings</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
